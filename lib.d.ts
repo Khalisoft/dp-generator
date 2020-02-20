@@ -1,5 +1,7 @@
 export type FieldType = string | File
 
+export type FieldOutput = FieldType & string
+
 export interface FieldDef {
   input: string
   output: string

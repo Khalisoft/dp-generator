@@ -1,7 +1,7 @@
 import html2canvas from 'html2canvas'
 import Canvas2Image from 'canvas2image'
 
-import { GeneratorOptions } from './lib'
+import { GeneratorOptions, FieldOutput } from './lib'
 
 function isType (value: Object, type: string) {
   return {}.toString.call(value) === `[object ${type}]`
@@ -58,7 +58,7 @@ export default function dpGenerator (options: GeneratorOptions) {
         return isType(onError, 'Function') ? onError(event) : false
       }
 
-      const setOutputValue = function setOutputValue (outValue: string | Blob | File) {
+      const setOutputValue = function setOutputValue (outValue: FieldOutput) {
         if (isType(model.handler, 'Function')) {
           return model.handler(outValue as string)
         }
