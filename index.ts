@@ -3,11 +3,11 @@ import Canvas2Image from 'canvas2image'
 
 import { GeneratorOptions, FieldOutput } from './lib'
 
-function isType (value: Object, type: string) {
+function isType(value: Object, type: string) {
   return {}.toString.call(value) === `[object ${type}]`
 }
 
-export default function dpGenerator (options: GeneratorOptions) {
+export default function dpGenerator(options: GeneratorOptions) {
   if (!isType(options, 'Object')) {
     throw new TypeError('Generator options must be an object.')
   }
@@ -27,7 +27,7 @@ export default function dpGenerator (options: GeneratorOptions) {
     throw new TypeError('Form container provided is not a valid form element.')
   }
 
-  options.models.map(function (model, index) {
+  options.models.map(function(model, index) {
     const input = document.getElementById(model.input)
     const output = document.getElementById(model.output)
 
@@ -43,7 +43,7 @@ export default function dpGenerator (options: GeneratorOptions) {
       )
     }
 
-    const changeHandler = function (event: Event) {
+    const changeHandler = function(event: Event) {
       const target = event.target as HTMLInputElement
       const isFile = target.type === 'file'
       let value = isFile ? target.files.length && target.files[0] : target.value
@@ -54,18 +54,18 @@ export default function dpGenerator (options: GeneratorOptions) {
         ? model.defaultValue
         : ''
 
-      const handleError = function handleError () {
+      const handleError = function handleError() {
         return isType(onError, 'Function') ? onError(event) : false
       }
 
-      const setOutputValue = function setOutputValue (outValue: FieldOutput) {
+      const setOutputValue = function setOutputValue(outValue: FieldOutput) {
         if (isType(model.handler, 'Function')) {
           return model.handler(outValue as string)
         }
 
         if (!outValue) {
           if (isFile) {
-            (output as HTMLImageElement).src = defaultValue
+            ;(output as HTMLImageElement).src = defaultValue
           } else {
             output.innerText = defaultValue
           }
@@ -80,10 +80,10 @@ export default function dpGenerator (options: GeneratorOptions) {
           }
 
           const reader = new window.FileReader()
-          reader.onload = function () {
-            (output as HTMLImageElement).src = reader.result.toString()
+          reader.onload = function() {
+            ;(output as HTMLImageElement).src = reader.result.toString()
           }
-          reader.onerror = function () {}
+          reader.onerror = function() {}
           reader.readAsDataURL(outValue as Blob)
           return
         }
@@ -102,13 +102,13 @@ export default function dpGenerator (options: GeneratorOptions) {
       setOutputValue(value)
     }
 
-    changeHandler({ target: output } as unknown as Event)
+    changeHandler(({ target: output } as unknown) as Event)
 
     input.addEventListener('input', changeHandler)
     input.addEventListener('change', changeHandler)
   })
 
-  form.addEventListener('submit', function (ev) {
+  form.addEventListener('submit', function(ev) {
     ev.preventDefault()
 
     if (
@@ -130,10 +130,11 @@ export default function dpGenerator (options: GeneratorOptions) {
       scale: 1,
       width: newWidth,
       height: newHeight
-    }).then(function (canvas: HTMLCanvasElement) {
-      const fileName = typeof options.fileName === 'function'
-        ? options.fileName(ev)
-        : 'generated-dp'
+    }).then(function(canvas: HTMLCanvasElement) {
+      const fileName =
+        typeof options.fileName === 'function'
+          ? options.fileName(ev)
+          : 'generated-dp'
 
       Canvas2Image.saveAsPNG(canvas, null, null, fileName)
       container.style.width = oldWidth
