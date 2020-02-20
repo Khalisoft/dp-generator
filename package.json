@@ -1,0 +1,35 @@
+{
+  "name": "dp-generator",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Simple library to create Display Picture Generator.",
+  "main": "dist/index.js",
+  "types": "lib.d.ts",
+  "files": [
+    "dist",
+    "lib.d.ts"
+  ],
+  "scripts": {
+    "dev": "parcel index.ts --global DPGenerator --no-source-maps",
+    "build": "parcel build index.ts --global DPGenerator --no-source-maps"
+  },
+  "keywords": [
+    "dp",
+    "generator",
+    "canvas"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/devhammed/dp-generator"
+  },
+  "author": "Hammed Oyedele <itz.harmid@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "canvas2image": "^1.0.5",
+    "html2canvas": "^1.0.0-rc.5"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4",
+    "typescript": "^3.7.5"
+  }
+}
