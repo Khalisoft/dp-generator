@@ -11,7 +11,8 @@
   ],
   "scripts": {
     "dev": "parcel index.ts --global DPGenerator --no-source-maps",
-    "build": "parcel build index.ts --global DPGenerator --no-source-maps"
+    "build": "parcel build index.ts --global DPGenerator --no-source-maps",
+    "prepublish": "npm run build"
   },
   "keywords": [
     "dp",
